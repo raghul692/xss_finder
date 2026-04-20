@@ -1,0 +1,22 @@
+# XSS Finder - Python Dependencies
+# Install with: pip install -r requirements.txt
+
+# HTTP requests library - core scanning engine
+requests>=2.31.0
+
+# HTML parsing - form/link extraction, context detection
+beautifulsoup4>=4.12.0
+
+# Terminal color output - colored alerts and banners
+colorama>=0.4.6
+
+# HTML parser backend for BeautifulSoup (faster than html.parser)
+lxml>=4.9.0
+
+# Optional: DOM XSS detection via real browser automation
+# Uncomment if you want --dom-check support:
+# selenium>=4.15.0
+# webdriver-manager>=4.0.0
+
+# Optional: Faster async scanning (future enhancement)
+# aiohttp>=3.9.0

